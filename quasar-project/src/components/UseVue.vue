@@ -27,7 +27,10 @@ export default {
         x: 0,
         y: 0
       },
-      startPoint: null,
+      startPoint: {
+        x: 0,
+        y: 0
+      },
       drag: false
     }
   },
@@ -48,10 +51,15 @@ export default {
     },
     mousemove: function (e) {
       if (this.drag) {
+        var moveX = e.clientX - this.startPoint.x;
+        var moveY = e.clientY - this.startPoint.y;
 
+        this.x = this.backup.x + moveX;
+        this.y = this.backup.y + moveY;
       }
     },
     mouseup: function () {
+      this.drag = false;
       document.removeEventListener("mousemove", this.mousemove);
       document.removeEventListener("mouseup", this.mouseup);
     }
